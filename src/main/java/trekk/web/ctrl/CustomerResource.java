@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import trekk.common.JsonUtil;
+import trekk.common.Views;
 import trekk.server.io.TrekkService;
 import trekk.server.model.Customer;
 
@@ -29,10 +31,7 @@ public class CustomerResource {
             throws IOException {
         log.debug("masterGet");
         Iterable<Customer> xs = trekkService.findAll();
-        for (Customer c: xs) {
-            log.debug("found customer: {}", c);
-        }
-        writeJson("[]", response);
+        writeJson(JsonUtil.serialize(xs, Views.Public.class), response);
     }
 
     public static void writeJson(final String json, final HttpServletResponse response)
