@@ -1,4 +1,4 @@
-package trekk.web;
+package trekk.web.config;
 
 import javax.inject.Inject;
 
@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
-@ComponentScan({"trekk.server.io"})
+@ComponentScan({"trekk.server.config", "trekk.web.ctrl", "trekk.server.io"})
 public class WebConfig extends WebMvcConfigurationSupport {
 
     private static final Logger log = LoggerFactory.getLogger(WebConfig.class);
@@ -26,11 +26,6 @@ public class WebConfig extends WebMvcConfigurationSupport {
 
     public WebConfig() {
         log.debug("WebConfig");
-    }
-
-    @Bean
-    public TrekController trekkController() {
-        return new TrekController();
     }
 
     @Bean

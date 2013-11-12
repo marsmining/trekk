@@ -1,4 +1,4 @@
-package trekk.web;
+package trekk.server.config;
 
 import java.io.IOException;
 import java.util.Map;
