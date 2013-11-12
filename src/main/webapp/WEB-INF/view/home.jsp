@@ -33,6 +33,7 @@
 <c:otherwise>
 
 <script src="${resourceUrl}/js/angular.min.js"></script>
+<script src="${resourceUrl}/js/app.js"></script>
 
 </c:otherwise>
 </c:choose>
