@@ -27,9 +27,9 @@ public class CustomerResource {
     private @Inject TrekkService trekkService;
 
     @RequestMapping(value="", method=RequestMethod.GET)
-    public void masterGet(HttpServletRequest request, HttpServletResponse response)
+    public void customerGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        log.debug("masterGet");
+        log.debug("customerGet");
         Iterable<Customer> xs = trekkService.findAll();
         writeJson(JsonUtil.serialize(xs, Views.Public.class), response);
     }

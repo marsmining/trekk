@@ -15,4 +15,16 @@ public class TrekController {
         log.debug("home");
         return "home";
     }
+
+    @RequestMapping("/customer")
+    public String list() {
+        log.debug("list");
+        return "home";
+    }
+
+    @RequestMapping("/customer/{id}")
+    public String detail() {
+        log.debug("detail");
+        return "home";
+    }
 }
