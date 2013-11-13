@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import trekk.common.Views;
 
@@ -18,25 +21,31 @@ import com.google.common.base.Objects;
 public class Customer extends BaseEntity {
 
     public static enum Gender {
-        m, w
+        m, w;
     }
 
+    @NotBlank
     @Column(nullable=false)
     private String firstName;
 
+    @NotBlank
     @Column(nullable=false)
     private String lastName;
 
+    @NotNull
     @Column(nullable=false)
     private Date birthday;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(nullable=false)
     private Gender gender;
 
+    @NotNull
     @Column(nullable=false)
     private Date lastContact;
 
+    @NotNull
     @Column(nullable=false)
     private Long lifetimeValue;
 
