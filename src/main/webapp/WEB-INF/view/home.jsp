@@ -24,13 +24,14 @@
 
 <div class="container">
   <h1>Trekk</h1>
-
+  <hr>
   <div ng-view></div>
 </div>
 
 <script type="text/ng-template" id="customerList.html">
-  <button class="btn btn-primary" ng-click="create()">Create Customer</button>
+  <h3>Customer List</h3>
   <hr>
+  <button class="btn btn-primary" ng-click="create()">Create Customer</button><br><br>
   <table class="table table-striped table-bordered taple-condensed">
     <thead>
       <tr>
@@ -56,14 +57,20 @@
 </script>
 
 <script type="text/ng-template" id="customerDetail.html">
-
-  <h3>Create Customer</h3>
+  <h3>{{ action }} Customer</h3>
   <hr>
-  <form class="form-horizontal" role="form" ng-submit="create(customer)">
+  <div class="alert alert-danger" ng-show="isError">An error occured: {{ errorMsg }}</div>
+  <form class="form-horizontal" role="form" ng-submit="save(customer)">
+    <div class="form-group" ng-show="customer.id">
+      <label class="col-sm-2 control-label">Customer Id</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" value="{{ customer.id }}" disabled>
+      </div>
+    </div>
     <div class="form-group">
       <label class="col-sm-2 control-label">First Name</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" ng-model="customer.firstName">
+        <input type="text" class="form-control" ng-model="customer.firstName" autofocus>
       </div>
     </div>
     <div class="form-group">
@@ -82,7 +89,7 @@
       <label class="col-sm-2 control-label">Gender</label>
       <div class="col-sm-10">
         <select class="form-control" ng-model="customer.gender">
-          <option value="f">Female</option>
+          <option value="w">Female</option>
           <option value="m">Male</option>
         </select>
       </div>
@@ -102,11 +109,29 @@
 
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-primary">Create Customer</button>
+        <button type="submit" class="btn btn-primary">{{ action }} Customer</button>
         <button class="btn btn-default" ng-click="home()">Cancel</button>
       </div>
     </div>
   </form>
+</script>
+
+<script type="text/ng-template" id="navigationList.html">
+  <h3>Navigation List</h3>
+  <hr>
+  <table class="table table-striped table-bordered taple-condensed">
+    <thead>
+      <tr>
+        <th>Page</th>
+        <th>Timestap</th>
+      </tr>
+    </thead>
+    <tr ng-repeat="n in navigations">
+      <td>{{ n.page }}</td>
+      <td>{{ n.stamp }}</td>
+    </tr>
+  </table>
+  <button class="btn btn-default" ng-click="home()">Back to Customers</button>
 </script>
 
 <c:choose>

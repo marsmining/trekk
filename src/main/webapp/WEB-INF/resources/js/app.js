@@ -27,6 +27,10 @@
                     templateUrl: "customerDetail.html",
                     controller: "CustomerEdit"
                 }).
+                when("/customer/:id/navigation", {
+                    templateUrl: "navigationList.html",
+                    controller: "NavigationList"
+                }).
                 otherwise({
                     redirectTo: "/customer"
                 });
@@ -36,7 +40,17 @@
 
     trekk.factory("Customer", ["$resource",
         function($resource) {
-            return $resource("api/customer", {}, {});
+            return $resource("/api/customer/:id", {}, {
+                query  : { method : "GET", isArray : true },
+                post   : { method : "POST" },
+                update : { method : "PUT", params: { id: "@id" }},
+                remove : { method : "DELETE" }
+            });
+        }]);
+
+    trekk.factory("Navigation", ["$resource",
+        function($resource) {
+            return $resource("/api/customer/:id/navigation", {}, {});
         }]);
 
     trekk.controller("CustomerList", ["$scope", "$location", "Customer",
@@ -52,10 +66,15 @@
 
             $scope.remove = function(idx) {
                 console.log("remove: ", idx);
+                Customer.remove({id : idx}, function() {
+                    console.log("success");
+                    $scope.customers.splice(findIndexById($scope.customers, idx), 1);
+                });
             };
 
             $scope.navigation = function(idx) {
                 console.log("navigation: ", idx);
+                $location.url("/customer/" + idx + "/navigation");
             };
 
             $scope.create = function() {
@@ -68,11 +87,27 @@
     trekk.controller("CustomerCreate", ["$scope", "$location", "Customer",
         function($scope, $location, Customer) {
             console.log("CustomerCreate Controller");
+            $scope.action = "Create";
 
-            $scope.create = function(c) {
-                console.log("create: ", c);
+            $scope.customer = {
+                gender : "w",
+                birthday : "1970-01-01",
+                lastContact : "2013-01-01",
+                lifetimeValue : 100
+            };
+
+            $scope.save = function(c) {
+                console.log("save: ", c);
                 var nc = new Customer(c);
-                nc.$save();
+                nc.$save().then(function() {
+                    console.log("success");
+                    $scope.isError = false;
+                    $location.url("/customer");
+                }, function(e) {
+                    console.log("error", e);
+                    $scope.isError = true;
+                    $scope.errorMsg = e.data;
+                });
             };
 
             $scope.home = function() {
@@ -80,10 +115,46 @@
             };
         }]);
 
-    trekk.controller("CustomerEdit", ["$scope", "$routeParams",
-        function($scope, $routeParams) {
+    trekk.controller("CustomerEdit", ["$scope", "$location", "$routeParams", "Customer",
+        function($scope, $location, $routeParams, Customer) {
             console.log("CustomerEdit Controller");
-            $scope.msg = "kerpow! id: " + $routeParams.id;
+            $scope.action = "Edit";
+
+            $scope.customer = Customer.get({id : $routeParams.id});
+
+            $scope.save = function(c) {
+                console.log("save: ", c);
+                c.$update().then(function() {
+                    console.log("success");
+                    $scope.isError = false;
+                    $location.url("/customer");
+                }, function(e) {
+                    console.log("error", e);
+                    $scope.isError = true;
+                    $scope.errorMsg = e.data;
+                });
+            };
+
+            $scope.home = function() {
+                $location.url("/");
+            };
         }]);
 
+
+    trekk.controller("NavigationList", ["$scope", "$location", "$routeParams", "Navigation",
+        function($scope, $location, $routeParams, Navigation) {
+            console.log("NavigationList Controller");
+            $scope.navigations = Navigation.query({id : $routeParams.id});
+            $scope.home = function() {
+                $location.url("/");
+            };
+        }]);
+
+    function findIndexById(xs, n) {
+        var i, l = xs.length;
+        for (i=0; i < l; i++) {
+            if (xs[i].id === n) return i;
+        }
+        throw new Error("id not found");
+    }
 }());
