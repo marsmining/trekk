@@ -1,3 +1,3 @@
-create database webtrekk character set = 'utf8';
-GRANT ALL PRIVILEGES ON webtrekk.* to 'webtrekk'@'localhost' identified by 'foo' with grant option;
+create database trekk character set = 'utf8';
+GRANT ALL PRIVILEGES ON trekk.* to 'trekk'@'localhost' identified by 'foo' with grant option;
 flush privileges;
