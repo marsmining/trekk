@@ -27,4 +27,10 @@ public class TrekController {
         log.debug("detail");
         return "home";
     }
+
+    @RequestMapping("/customer/{id}/navigation")
+    public String navigation() {
+        log.debug("navigation");
+        return "home";
+    }
 }
