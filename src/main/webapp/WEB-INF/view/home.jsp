@@ -20,11 +20,94 @@
 
 </head>
 
-<body>
+<body ng-app="trekk">
 
 <div class="container">
   <h1>Trekk</h1>
+
+  <div ng-view></div>
 </div>
+
+<script type="text/ng-template" id="customerList.html">
+  <button class="btn btn-primary" ng-click="create()">Create Customer</button>
+  <hr>
+  <table class="table table-striped table-bordered taple-condensed">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tr ng-repeat="c in customers">
+      <td>{{ c.firstName }}</td>
+      <td>{{ c.lastName }}</td>
+      <td>42</td>
+      <td>{{ c.gender }}</td>
+      <td>
+        <button class="btn btn-default btn-xs" ng-click="edit(c.id)">Edit</button>
+        <button class="btn btn-default btn-xs" ng-click="remove(c.id)">Delete</button>
+        <button class="btn btn-default btn-xs" ng-click="navigation(c.id)">Navigation</button>
+      </td>
+    </tr>
+  </table>
+</script>
+
+<script type="text/ng-template" id="customerDetail.html">
+
+  <h3>Create Customer</h3>
+  <hr>
+  <form class="form-horizontal" role="form" ng-submit="create(customer)">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">First Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" ng-model="customer.firstName">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Last Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" ng-model="customer.lastName">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Birthday</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" ng-model="customer.birthday">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Gender</label>
+      <div class="col-sm-10">
+        <select class="form-control" ng-model="customer.gender">
+          <option value="f">Female</option>
+          <option value="m">Male</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Last Contact</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" ng-model="customer.lastContact">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Lifetime Value</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" ng-model="customer.lifetimeValue">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">Create Customer</button>
+        <button class="btn btn-default" ng-click="home()">Cancel</button>
+      </div>
+    </div>
+  </form>
+</script>
 
 <c:choose>
 <c:when test="${envbase eq 'prod'}">
@@ -33,6 +116,8 @@
 <c:otherwise>
 
 <script src="${resourceUrl}/js/angular.min.js"></script>
+<script src="${resourceUrl}/js/angular-route.min.js"></script>
+<script src="${resourceUrl}/js/angular-resource.min.js"></script>
 <script src="${resourceUrl}/js/app.js"></script>
 
 </c:otherwise>
