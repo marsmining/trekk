@@ -1,8 +1,8 @@
 trekk
 =====
 
-Tiny demo webapp with an elementary two entity domain model. Moistly boilerplate code for an
-app with [Angular](http://angularjs.org/) client-side code and Java server-side REST resource,
+Tiny demo webapp with an elementary two entity domain model. Mostly boilerplate code for an
+app with [Angular](http://angularjs.org/) client-side code and a Java server-side REST resource,
 using [Spring](http://projects.spring.io/spring-framework/). I'm just three days into learning
 Angular, so I'm sure the client-side code could be improved.
 
