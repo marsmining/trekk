@@ -36,7 +36,7 @@
     <tr ng-repeat="c in customers">
       <td>{{ c.firstName }}</td>
       <td>{{ c.lastName }}</td>
-      <td>42</td>
+      <td>{{ c.age }}</td>
       <td>{{ c.gender }}</td>
       <td>
         <button class="btn btn-default btn-xs" ng-click="edit(c.id)">Edit</button>

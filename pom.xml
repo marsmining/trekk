@@ -232,6 +232,12 @@
       <version>${jackson.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+      <version>2.3</version>
+    </dependency>
+
   </dependencies>
 
   <!-- Build Element -->

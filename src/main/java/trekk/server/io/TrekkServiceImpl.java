@@ -25,7 +25,7 @@ public class TrekkServiceImpl implements TrekkService {
 
     @Override
     public Iterable<Customer> findAll() {
-        return customerRepo.findAll();
+        return customerRepo.findAllOrderByLastContact();
     }
 
     @Override
@@ -51,6 +51,6 @@ public class TrekkServiceImpl implements TrekkService {
 
     @Override
     public Iterable<Navigation> findByCustomerId(Long id) {
-        return navigationRepo.findByCustomerId(id);
+        return navigationRepo.findByCustomerIdOrderByStamp(id);
     }
 }

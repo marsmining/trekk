@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.joda.time.LocalDate;
+import org.joda.time.Years;
 
 import trekk.common.Views;
 
@@ -113,6 +115,16 @@ public class Customer extends BaseEntity {
 
     public void setNavigations(List<Navigation> navigations) {
         this.navigations = navigations;
+    }
+
+    /* derived properties */
+
+    @JsonView(Views.Public.class)
+    public Integer getAge() {
+        final Date birthday = getBirthday();
+        if (birthday == null) return null;
+        return Years.yearsBetween(LocalDate.fromDateFields(birthday), LocalDate.now()).
+                getYears();
     }
 
     @Override
