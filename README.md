@@ -6,6 +6,8 @@ app with [Angular](http://angularjs.org/) client-side code and a Java server-sid
 using [Spring](http://projects.spring.io/spring-framework/). I'm just three days into learning
 Angular, so I'm sure the client-side code could be improved.
 
+You can demo the app here: [http://trekk.ockhamsolutions.de](http://trekk.ockhamsolutions.de)
+
 Some areas which could be improved are pre-fetching resources and including in initial HTML.
 Client-side form validation. Server-side error handling. Features this does have are proper
 caching of resources, with static assets served from a path derived from project version. A
