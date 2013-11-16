@@ -41,7 +41,14 @@ public class TrekkServiceImpl implements TrekkService {
 
     @Override
     public Customer update(Customer customer) {
-        return customerRepo.save(customer);
+        Customer found = customerRepo.findOne(customer.getId());
+        if (found == null) throw new IllegalArgumentException("id not found");
+        found.setFirstName(customer.getFirstName());
+        found.setLastName(customer.getLastName());
+        found.setGender(customer.getGender());
+        found.setBirthday(customer.getBirthday());
+        found.setLifetimeValue(customer.getLifetimeValue());
+        return customerRepo.save(found);
     }
 
     @Override
