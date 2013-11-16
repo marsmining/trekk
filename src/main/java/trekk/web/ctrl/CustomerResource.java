@@ -93,6 +93,7 @@ public class CustomerResource {
         }
         Set<ConstraintViolation<Customer>> errors = validator.validate(customer);
         if (errors.isEmpty()) {
+            customer.setId(id);
             writeJson(JsonUtil.serializeBean(trekkService.update(customer)), response, null);
         } else {
             writeJson(JsonUtil.serializeBean(convert(errors)), response, 400);
