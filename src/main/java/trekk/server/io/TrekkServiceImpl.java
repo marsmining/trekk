@@ -5,12 +5,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import trekk.server.model.Customer;
 import trekk.server.model.Navigation;
 import trekk.server.repo.CustomerRepo;
 import trekk.server.repo.NavigationRepo;
 
 @Named
+@Transactional
 public class TrekkServiceImpl implements TrekkService {
 
     private final CustomerRepo customerRepo;
@@ -48,7 +51,9 @@ public class TrekkServiceImpl implements TrekkService {
         found.setGender(customer.getGender());
         found.setBirthday(customer.getBirthday());
         found.setLifetimeValue(customer.getLifetimeValue());
-        return customerRepo.save(found);
+        Customer created = customerRepo.save(found);
+        created.getNavigations().size();
+        return created;
     }
 
     @Override
