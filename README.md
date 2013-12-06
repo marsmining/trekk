@@ -18,3 +18,5 @@ To view the client-side code you can start with [the Javascript](/src/main/webap
 and [the HTML](/src/main/webapp/WEB-INF/view/home.jsp). For server-side code you can start
 with the [REST customer resource](src/main/java/trekk/web/ctrl/CustomerResource.java)
 and the [equivalent of web.xml](src/main/java/trekk/web/config/WebInitializer.java).
+
+_tested only on Win7+ie10 and osx10.9+Chrome_
